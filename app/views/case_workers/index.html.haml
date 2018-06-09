@@ -1,0 +1,22 @@
+%h2
+  Case Workers
+= render(:partial => "shared/flashes")
+
+%table
+  %tr
+    %td
+      = button_to("Create a new Case Worker", new_case_worker_path, :method => :get)
+      &nbsp; &nbsp;
+    %td
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    %td
+      - form_for(CaseWorker.new, :url => {:action => "index"}, :html => {:method => :get}) do |f|
+        %fieldset
+          Search By Last Name: 
+          = text_field_tag :search_term
+          = f.submit "Search"
+
+%br
+
+- column_titles = ['ID', 'Name', 'Phone', 'Email', 'Organization', 'Actions']
+= table_header('Case Worker', @the_things, column_titles, 'case_worker')

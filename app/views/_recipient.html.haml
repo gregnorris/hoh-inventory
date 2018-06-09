@@ -1,0 +1,33 @@
+%tr
+  -# show the scheduled_delivery_time of the delivery with oldest noncomplete scheduled delivery time
+  - oldest_uncompleted_delivery = recipient.deliveries.by_oldest_uncompleted.first
+  %td
+    = recipient.id
+  -#{:style => "background-color:red"}
+  %td
+    %b
+      = link_to(recipient.full_name, edit_recipient_path(recipient))
+  %td
+    = "#{recipient.phone_primary} <br>  #{recipient.phone_secondary}"
+  %td
+    = recipient.address
+  %td
+    = recipient.city_section_string
+  %td
+    = Delivery::STATES[oldest_uncompleted_delivery.state] if oldest_uncompleted_delivery
+  %td
+    = Delivery::PRIORITIES[oldest_uncompleted_delivery.andand.priority]
+  %td
+    = (oldest_uncompleted_delivery.pending.nil? ? 'nil' : oldest_uncompleted_delivery.pending?) if oldest_uncompleted_delivery
+  %td
+    = datetime_formatted_2_line(oldest_uncompleted_delivery.andand.latest_call_at)
+  %td
+    = date_formatted(oldest_uncompleted_delivery.andand.scheduled_delivery_time)
+  %td
+    = recipient.deliveries.size
+  %td
+    = link_to_icon(:view, recipient_path(recipient))
+    |
+    = link_to_icon(:edit, edit_recipient_path(recipient))
+    |
+    = link_to_icon(:delete, polymorphic_path([recipient]))

@@ -1,0 +1,18 @@
+%tr
+  %td
+    = daily_worksheet.id
+  %td
+    = daily_worksheet.worksheet_date
+  %td
+    = link_to_icon(:edit, edit_daily_worksheet_path(daily_worksheet))
+    |
+    = link_to_icon(:delete, polymorphic_path([daily_worksheet]))
+  %td
+    = daily_worksheet.special_comments
+  %td
+    -#= daily_worksheet.total_trips
+  %td
+    = datetime_formatted(daily_worksheet.created_at)
+  %td
+    = datetime_formatted(daily_worksheet.updated_at)
+  

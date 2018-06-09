@@ -1,0 +1,5 @@
+%div.boxtitle
+  All Scheduled/Completed Deliveries
+%div.boxcontent
+  - column_titles = ['ID', 'Priority', 'Scheduled Time', 'Delivered On', 'State', 'Items', 'Actions']
+  = index_table(@recipient.deliveries.all(:order => 'scheduled_delivery_time ASC'), column_titles, 'deliveries/delivery')     

@@ -5,7 +5,45 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'welcome#index'
+  #root 'welcome#index'
+
+  resource :user_session
+  root :controller => "user_sessions", :action => "new" # first page user sees is the login page
+  #map.root :controller => :recipients
+
+  resources :recipients, :collection => { :show_map => :get } do
+    resources :deliveries, :member => { :delivery_sheet => :get } do
+      resources :delivered_items
+    end
+  end
+
+  # to allow for top level index view
+  resources :deliveries, :member => { :add_to_worksheet => :put }
+  resources :donor_pickups, :member => { :add_to_worksheet => :put }
+
+  # TODO: remove :member => { :add_to_worksheet => :put }
+  resources :donors, :member => { :add_to_worksheet => :put } do
+    resources :donor_items
+    resources :donor_pickups, :member => { :delivery_sheet => :get } do
+      resources :pickedup_items
+    end
+  end
+
+  resources :items
+  resources :case_workers
+  resources :organizations
+  resources :reports, :member => { :deliveries_stats => :get }
+
+  resources :users
+  resource :account, :controller => "users"
+
+  #not needed anymore, with new verison of rails and authlogic (hopefully)
+  #login "login", :controller => "user_sessions", :action => "new"
+  #logout "logout", :controller => "user_sessions", :action => "destroy"
+
+  resources :daily_worksheets, :member => { :reorder => :get, :print_worksheet => :get } do
+		resources :daily_deliveries   # was map.resources ....
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

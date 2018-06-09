@@ -14,6 +14,18 @@ gem 'puma', '~> 3.9'
 # ORM
 gem 'pg', '~> 0.20.0' # Keep using '0.20.0' to avoid deprecation messages
 
+# older gems used in HoH Inventory
+gem "authlogic", "3.4.6"
+gem "haml"
+
+#gem "andand" #, "1.3.1"
+#gem "calendar_date_select" #, "1.15"
+##gem "hoe", "1.12.1"  # bundler said calendar_date_select depended on
+
+#gem "mislav-will_paginate", "2.3.10", :require => 'will_paginate' # according to rubygems.org, 2.3.11 was "yanked"
+#gem "ryanb-acts-as-list", "0.1.2", :require => 'acts_as_list'
+
+
 # Pagination
 # gem 'kaminari'
 

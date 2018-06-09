@@ -1,0 +1,78 @@
+%tr{:style => "cursor: move",  :id => "daily_delivery_#{dd_form.object.id}"}
+  - is_delivery = (dd_form.object.pickup_or_delivery == DailyDelivery::DELIVERY)
+  - is_pickup = (dd_form.object.pickup_or_delivery == DailyDelivery::PICKUP)
+  %td
+    = dd_form.text_field :position, :size => 3
+  %td
+    = dd_form.object.visit_notes ? dd_form.object.visit_notes : '&nbsp;&nbsp;&nbsp;&nbsp;'
+  %td
+    = dd_form.object.target.andand.directions
+  %td
+    = dd_form.object.target.andand.address
+    %br
+    %table{:style => "font-size:10"}
+      %tr
+        %td
+          = "Buzz: #{dd_form.object.target.buzzer_number} &nbsp; " if dd_form.object.andand.target
+        %td
+          = "Lvl: #{dd_form.object.target.level} &nbsp; " if dd_form.object.andand.target
+        %td
+          = "Elev?: #{dd_form.object.target.elevator? ? 'Yes' : 'N'}"  if dd_form.object.andand.target
+      %tr
+        %td
+          = "Dwell: #{Recipient::DWELLINGS[dd_form.object.target.dwelling_type]} &nbsp; " if dd_form.object.andand.target.andand.dwelling_type
+        %td
+          = "Bedrms: #{dd_form.object.target.bedrooms} &nbsp; " if is_delivery && dd_form.object.target
+        %td
+          = "BBugs?: #{dd_form.object.target.bed_bugs? ? 'Yes' : 'N'}" if dd_form.object.target
+  %td
+    = dd_form.object.target.andand.full_name
+    %br
+    = dd_form.object.target.andand.phone_primary
+    = "/ #{dd_form.object.target.andand.phone_secondary}" unless dd_form.object.target.andand.phone_secondary.blank?
+  %td
+    - if dd_form.object.new_record?
+      - states = DailyDelivery::TARGET_TYPES.map{ |s| [s[1], s[0]]}
+      = dd_form.select :pickup_or_delivery, states, {:include_blank => ''}
+      %br
+      = "pickup ID:"
+      = dd_form.text_field :donor_pickup_id, :size => 3
+      = " OR "
+      %br
+      = "delivery ID:"
+      = dd_form.text_field :delivery_id, :size => 3
+      = hidden_field_tag :is_new_object, "yes"
+    - else
+      = DailyDelivery::TARGET_TYPES[dd_form.object.pickup_or_delivery]
+      - if is_pickup && dd_form.object.target
+        = " (ID: #{dd_form.object.donor_pickup.id}) " if dd_form.object.donor_pickup
+        %br
+        = "Donor:"
+        = link_to_icon('edit', edit_donor_path(dd_form.object.target.id))
+      - if is_delivery && dd_form.object.delivery
+        = " (ID: #{dd_form.object.delivery.id}) " 
+        %br
+        = "Recipient:"
+        = link_to_icon('edit', edit_recipient_path(dd_form.object.target.id))
+      
+  %td
+    - the_items = dd_form.object.items_list
+    = the_items
+  - unless dd_form.object.new_record?
+    %td
+      = dd_form.check_box '_delete'
+      = dd_form.label '_delete', "Remove"
+  - else
+    %td
+      = ''
+        
+= draggable_element( "daily_delivery_#{dd_form.object.id}", :ghosting => true, :revert => true)
+
+-#= drop_receiving_element "daily_delivery_#{daily_delivery.id}", :update => 'delivery_list', |
+-#  :with => "'delivery_id=' + element.id", |
+-#  :url => reorder_daily_worksheet_path(daily_delivery.id), |
+-#  :hoverclass => "row_highlight" |
+
+-#:url => { :action => 'restructure', :category_id => category.id },
+-#:url => reorder_daily_worksheet_path(daily_delivery.id), |
+

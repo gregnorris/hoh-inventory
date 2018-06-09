@@ -1,13 +1,8 @@
-# Rails 4 Starter App
-[![Build Status](https://travis-ci.org/diowa/ruby2-rails4-bootstrap-heroku.svg?branch=master)](https://travis-ci.org/diowa/ruby2-rails4-bootstrap-heroku)
-[![Dependency Status](https://gemnasium.com/badges/github.com/diowa/ruby2-rails4-bootstrap-heroku.svg)](https://gemnasium.com/github.com/diowa/ruby2-rails4-bootstrap-heroku)
-[![Code Climate](https://codeclimate.com/github/diowa/ruby2-rails4-bootstrap-heroku/badges/gpa.svg)](https://codeclimate.com/github/diowa/ruby2-rails4-bootstrap-heroku)
-[![Coverage Status](https://coveralls.io/repos/github/diowa/ruby2-rails4-bootstrap-heroku/badge.svg?branch=master)](https://coveralls.io/github/diowa/ruby2-rails4-bootstrap-heroku?branch=master)
+# HoH Inventory
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-
-This is a starter web application based on the following technology stack:
+Is compatible with the following technology stack:
 
 * [Ruby 2.4.1][1]
 * [Rails 4.2.9][2]
@@ -38,13 +33,10 @@ This is a starter web application based on the following technology stack:
 [13]: https://github.com/sds/slim-lint
 [14]: https://github.com/brigade/scss-lint
 
-Starter App is deployable on [Heroku](https://www.heroku.com/). Demo: https://ruby2-rails4-bootstrap-heroku.herokuapp.com/
-
-```Gemfile``` also contains a set of useful gems for performance, security, api building...
 
 ### Thread safety
 
-We assume that this application is thread safe. If your application is not thread safe or you don't know, please set the minimum and maximum number of threads usable by puma on Heroku to 1:
+If the application is not thread safe, then set the minimum and maximum number of threads usable by puma on Heroku to 1:
 
 ```sh
 $ heroku config:set RAILS_MAX_THREADS=1
