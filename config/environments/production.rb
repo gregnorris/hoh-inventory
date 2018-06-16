@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# maybe check here, for more hints:
+#https://github.com/mattbrictson/rails-starter/
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 

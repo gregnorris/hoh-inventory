@@ -1,0 +1,68 @@
+%tr.form_field.required
+  %td.form_label
+    = f.label 'Name (First / Last)'
+  %td
+    = f.text_field :first_name, :size => 15
+    &nbsp; &nbsp; / &nbsp; &nbsp;
+    = f.text_field :last_name, :size => 15
+%tr.form_field
+  %td.form_label  
+    = f.label :phone_primary, "Phone #(s)"
+  %td
+    = f.text_field :phone_primary, :size => 10
+    &nbsp; &nbsp; / &nbsp; &nbsp;
+    = f.text_field :phone_secondary, :size => 10
+%tr.form_field
+  %td.form_label
+    = f.label :email
+  %td  
+    = f.text_field :email
+%tr.form_field
+  %td.form_label
+    = f.label :city_section
+  %td
+    = f.select :city_section, city_sections_list(f.object.city_section), {:include_blank => 'Please Select a City Section'}
+    = link_to("Show Map", {:controller => 'recipients', :action => 'show_map'}, { :popup => ['new_window', 'height=500,width=700'] })
+%tr.form_field
+  %td.form_label
+    = f.label "Address"
+  %td  
+    = f.text_field :street_1
+%tr.form_field
+  %td.form_label
+    = f.label :level
+  %td  
+    = f.text_field :level, :size => 2
+    &nbsp;<b> Buzzer/Code </b>
+    = f.text_field :buzzer_number, :size => 7
+    &nbsp;<b> Elevator? </b>
+    = f.check_box :elevator  
+%tr.form_field
+  %td.form_label
+    = f.label 'Dwelling'
+  %td  
+    - dwellings = Recipient::DWELLINGS_LONG.sort.map{ |s| [s[1], s[0]]}
+    = f.select :dwelling_type, dwellings, {:include_blank => ' '}
+    &nbsp;<b> Bed Bugs? </b>
+    = f.check_box :bed_bugs
+    
+%tr.form_field
+  %td.form_label
+    = f.label :directions
+  %td  
+    = f.text_area :directions, :cols => 40, :rows => 3
+%tr.form_field
+  %td.form_label
+    = f.label 'Donation ($)'
+  %td  
+    = f.text_field :donation_amount, :size => 2
+%tr.form_field
+  %td.form_label
+    = f.label :possible_future_pickup_time
+  %td  
+    = f.calendar_date_select :possible_future_pickup_time, :time => false, :popup => :force
+%tr
+  %td
+    &nbsp;
+    -# blank
+

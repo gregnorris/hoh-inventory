@@ -7,8 +7,11 @@
   <title><%= controller.andand.the_model_name + ': ' + controller.action_name %></title>
   <%= stylesheet_link_tag 'basestyle' %>
   <%= stylesheet_link_tag 'hoh_style' %>
-  <%= javascript_include_tag :defaults %>
-  <%= calendar_date_select_includes "red" %>
+  <%#= calendar_date_select_includes "red" %>
+
+  
+  <%#= javascript_include_tag :defaults %>
+
 </head>
 <body>
 
@@ -55,13 +58,13 @@
     &nbsp;&nbsp;
     |
   </td>
-  
+
   <td>&nbsp;&nbsp;
     <b><font size="4"><%= link_to 'Pickups', donor_pickups_path %></font></b>
     &nbsp;&nbsp;
     |
   </td>
-  
+
   <td>&nbsp;&nbsp;
     <b><font size="4"><%= link_to 'Case Workers', case_workers_path %></font></b>
     &nbsp;&nbsp;
@@ -100,7 +103,7 @@
 <hr size="10" color="#034569">
 
 
-<a href="/">home</a>      
+<a href="/">home</a>
 <%= generate_breadcrumbs(request) %>
 
 

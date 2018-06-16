@@ -37,9 +37,9 @@ Rails.application.routes.draw do
   resources :users
   resource :account, :controller => "users"
 
-  #not needed anymore, with new verison of rails and authlogic (hopefully)
-  #login "login", :controller => "user_sessions", :action => "new"
-  #logout "logout", :controller => "user_sessions", :action => "destroy"
+  # special routes for login and logout
+  get "login", :controller => "user_sessions", :action => "new"
+  delete "logout", :controller => "user_sessions", :action => "destroy"
 
   resources :daily_worksheets, :member => { :reorder => :get, :print_worksheet => :get } do
 		resources :daily_deliveries   # was map.resources ....

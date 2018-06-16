@@ -12,10 +12,9 @@
 #
 #= require jquery
 #= require jquery_ujs
-#= require turbolinks
+#= require prototype
 
 # BOOTSTRAP
-#= require twbs/bootstrap
 
 # I18n
 #= require i18n
