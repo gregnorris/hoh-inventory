@@ -2,8 +2,9 @@
   = "New User"
 
 %div.left_half
-  - form_for(@user, :url => {:action => "create"}, :html => {:method => :post}) do |f|
-    = f.error_messages
+  = form_for(@user, :url => {:action => "create"}, :html => {:method => :post}) do |f|
+    -#= f.error_messages
+    = render 'shared/error_messages', :target => @user
     %fieldset
       %table
         = render :partial => "form", :locals => {:f => f}

@@ -1,7 +1,7 @@
 %h2
   = "Edit User: #{@user.login}"
 %div.left_half
-  - form_for(@user, :url => {:action => "update"}, :html => {:method => :put}) do |f|
+  = form_for(@user, :url => {:action => "update"}, :html => {:method => :put}) do |f|
     %fieldset
       %table
         = render :partial => "form", :locals => {:f => f}

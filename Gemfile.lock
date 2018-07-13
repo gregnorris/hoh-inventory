@@ -189,6 +189,7 @@ GEM
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
     uniform_notifier (1.11.0)
+    will_paginate (3.1.6)
 
 PLATFORMS
   ruby
@@ -214,6 +215,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   spring (~> 2.0)
   uglifier (~> 3.2)
+  will_paginate (~> 3.1.0)
 
 RUBY VERSION
    ruby 2.4.1p111

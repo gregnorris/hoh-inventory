@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   #root 'welcome#index'
 
-  resource :user_session
+  #resource :user_session
   root :controller => "user_sessions", :action => "new" # first page user sees is the login page
   #map.root :controller => :recipients
 
@@ -36,6 +36,8 @@ Rails.application.routes.draw do
 
   resources :users
   resource :account, :controller => "users"
+
+  resources :user_sessions
 
   # special routes for login and logout
   get "login", :controller => "user_sessions", :action => "new"

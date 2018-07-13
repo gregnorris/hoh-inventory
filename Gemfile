@@ -14,7 +14,7 @@ gem 'puma', '~> 3.9'
 # ORM
 gem 'pg', '~> 0.20.0' # Keep using '0.20.0' to avoid deprecation messages
 
-# older gems used in HoH Inventory
+
 gem "authlogic", "3.4.6"
 gem "haml"
 # https://github.com/haml/haml/issues/946
@@ -30,7 +30,8 @@ gem 'andand', '~> 1.3', '>= 1.3.3'
 gem "calendar_date_select", "2.1.2"  # should be changed (because it's not really supported for Rails 4)
 ##gem "hoe", "1.12.1"  # bundler said calendar_date_select depended on
 
-#gem "mislav-will_paginate", "2.3.10", :require => 'will_paginate' # according to rubygems.org, 2.3.11 was "yanked"
+gem "will_paginate", '~> 3.1.0'
+#OLD?gem "mislav-will_paginate", "2.3.10", :require => 'will_paginate' # according to rubygems.org, 2.3.11 was "yanked"
 #gem "ryanb-acts-as-list", "0.1.2", :require => 'acts_as_list'
 
 
