@@ -1,21 +1,21 @@
 %tr
-  = table_row(donor.id)
-  = table_row("#{donor.full_name} <br> #{donor.phone_primary} <br>  #{donor.phone_secondary}")
-  = table_row(donor.address)
-  = table_row(donor.city_section_string)
-  = table_row(Donor::STATES[donor.state])
-  = table_row(Donor::PRIORITIES[donor.priority])
-  = table_row(donor.pending.nil? ? 'nil' : donor.pending?)
-  = table_row(date_formatted(donor.scheduled_pickup_time))
+  = raw table_row(donor.id)
+  = raw table_row("#{donor.full_name} <br> #{donor.phone_primary} <br>  #{donor.phone_secondary}")
+  = raw table_row(donor.address)
+  = raw table_row(donor.city_section_string)
+  = raw table_row(Donor::STATES[donor.state])
+  = raw table_row(Donor::PRIORITIES[donor.priority])
+  = raw table_row(donor.pending.nil? ? 'nil' : donor.pending?)
+  = raw table_row(date_formatted(donor.scheduled_pickup_time))
   %td
     - donor.daily_deliveries.each do |dd|
       - if dd.daily_worksheet
         = link_to(date_formatted(dd.daily_worksheet.worksheet_date), edit_daily_worksheet_path(dd.daily_worksheet))
         %br
-  -#= table_row("#{donor.daily_deliveries.first ? date_formatted(donor.daily_deliveries.first.daily_worksheet.worksheet_date) : ''}")
-  = table_row(date_formatted(donor.possible_future_pickup_time))
-  = table_row(donor.items_list)
-  
+  -#= raw table_row("#{donor.daily_deliveries.first ? date_formatted(donor.daily_deliveries.first.daily_worksheet.worksheet_date) : ''}")
+  = raw table_row(date_formatted(donor.possible_future_pickup_time))
+  = raw table_row(donor.items_list)
+
   %td
     = link_to_icon(:view, donor_path(donor))
     |
@@ -24,5 +24,5 @@
     = link_to_icon(:delete, polymorphic_path([donor]))
     -#|
     -#-form_tag add_to_worksheet_donor_path(donor), :method => :put do
-    -#  = calendar_date_select_tag( 'the_worksheet_date', Time.now.to_date, :size => 23, :time => false, :popup => :force)   
+    -#  = calendar_date_select_tag( 'the_worksheet_date', Time.now.to_date, :size => 23, :time => false, :popup => :force)
     -#  = submit_tag "Add to Daily Worksheet", :name => 'add_to_daily_worksheet'

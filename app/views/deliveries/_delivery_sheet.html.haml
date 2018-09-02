@@ -1,9 +1,9 @@
 %h3{:style => 'text-align:center'}
   - strftime_format = "%a %b %d, %y - %H:%M"
   = "FURNITURE DELIVERY - #{delivery.scheduled_delivery_time.andand.strftime(strftime_format)}"
-  
+
   - recipient = delivery.recipient
-  
+
 %table{:style => "font-family:monaco"}
   %tr{:width => '1000px'}
     %td{:width => '100px', :valign => 'top'}
@@ -11,89 +11,88 @@
     %td{:width => '350px', :valign => 'top'}
       %table{:border => '1', :cellpadding => '5', :border_collapse => 'collapse', :style => "border-style: solid; border-collapse: collapse"}
         %tr
-          = delivery_sheet_item_td('DEL')
-          = delivery_sheet_item_td('REQ')
+          = raw delivery_sheet_item_td('DEL')
+          = raw delivery_sheet_item_td('REQ')
           %td
             -#{:width => '200px'}
             ITEM
-          = delivery_sheet_item_td('LD')
+          = raw delivery_sheet_item_td('LD')
         - delivery.delivered_items.each do |di|
           %tr
-            = delivery_sheet_item_td('&nbsp; &nbsp;')
-            = delivery_sheet_item_td("&nbsp; #{di.number_requested}")
-            = delivery_sheet_item_td("#{di.item.item_code} - #{di.item.name}")
-            = delivery_sheet_item_td('&nbsp; &nbsp;')
+            = raw delivery_sheet_item_td('&nbsp; &nbsp;')
+            = raw delivery_sheet_item_td("&nbsp; #{di.number_requested}")
+            = raw delivery_sheet_item_td("#{di.item.item_code} - #{di.item.name}")
+            = raw delivery_sheet_item_td('&nbsp; &nbsp;')
         - 2.times do
           %tr
             - 4.times do
-              = delivery_sheet_item_td('&nbsp; &nbsp;')
+              = raw delivery_sheet_item_td('&nbsp; &nbsp;')
       %br
       %br
       %table{:border => '1', :cellpadding => '5', :border_collapse => 'collapse', :style => "border-style: solid; border-collapse: collapse"}
         %tr
-          = delivery_sheet_item_td('# REQ')
+          = raw delivery_sheet_item_td('# REQ')
           %td{:width => '175px'}
             NEEDED ITEM
         - 3.times do
           %tr
-            = delivery_sheet_item_td('&nbsp; &nbsp;')
-            = delivery_sheet_item_td('&nbsp; &nbsp;')
-            
+            = raw delivery_sheet_item_td('&nbsp; &nbsp;')
+            = raw delivery_sheet_item_td('&nbsp; &nbsp;')
+
     %td{:width => '550px'}
       %table
-        -#= delivery_sheet_row('Scheduled Delivery Time', datetime_formatted(delivery.scheduled_delivery_time))
-        = delivery_sheet_row('NAME', recipient.full_name) 
-        = delivery_sheet_row('EMAIL', recipient.email) 
-        = delivery_sheet_row('PHONE #', recipient.phone_primary) 
-        = delivery_sheet_row('ALTERNATE #', recipient.phone_secondary)
-        = delivery_sheet_row('CITY SECTION', recipient.city_section_string) 
-        = delivery_sheet_row('Address', recipient.street_1)
+        -#= raw delivery_sheet_row('Scheduled Delivery Time', datetime_formatted(delivery.scheduled_delivery_time))
+        = raw delivery_sheet_row('NAME', recipient.full_name)
+        = raw delivery_sheet_row('EMAIL', recipient.email)
+        = raw delivery_sheet_row('PHONE #', recipient.phone_primary)
+        = raw delivery_sheet_row('ALTERNATE #', recipient.phone_secondary)
+        = raw delivery_sheet_row('CITY SECTION', recipient.city_section_string)
+        = raw delivery_sheet_row('Address', recipient.street_1)
         %tr
           %td{:align => 'right'}
             Class:&nbsp;
           %td
-            = underlined_with_spaces(Delivery::PRIORITIES[delivery.priority], 1)
+            = raw underlined_with_spaces(Delivery::PRIORITIES[delivery.priority], 1)
             Pending?:
-            = underlined_with_spaces((delivery.pending? ? 'yes' : 'no'), 0)
+            = raw underlined_with_spaces((delivery.pending? ? 'yes' : 'no'), 0)
             Bed Bugs?:
-            = underlined_with_spaces((recipient.bed_bugs? ? 'yes' : 'no'), 0)
+            = raw underlined_with_spaces((recipient.bed_bugs? ? 'yes' : 'no'), 0)
         %tr
           %td{:align => 'right'}
             Level:&nbsp;
           %td
-            = underlined_with_spaces(recipient.level, 1)
+            = raw underlined_with_spaces(recipient.level, 1)
             Buzzer Code:
-            = underlined_with_spaces(recipient.buzzer_number, 0)
+            = raw underlined_with_spaces(recipient.buzzer_number, 0)
             Elevator?:
-            = underlined_with_spaces((recipient.elevator? ? 'yes' : 'no'), 0)
-        = delivery_sheet_row('DIRECTIONS', recipient.directions) 
+            = raw underlined_with_spaces((recipient.elevator? ? 'yes' : 'no'), 0)
+        = delivery_sheet_row('DIRECTIONS', recipient.directions)
         %tr
           %td{:align => 'right'}
             BEDROOMS:&nbsp;
           %td
-            = underlined_with_spaces(recipient.bedrooms, 2)
+            = raw underlined_with_spaces(recipient.bedrooms, 2)
             Adults:
-            = underlined_with_spaces(recipient.number_of_adults, 3) 
+            = raw underlined_with_spaces(recipient.number_of_adults, 3)
             Children:
-            = underlined_with_spaces(recipient.number_of_children, 4) 
-        = delivery_sheet_row('Work/School Sched', recipient.work_school_schedule)
-        = underlined_empty_row(ApplicationHelper::DS_LINE_MAX)
-        -#= delivery_sheet_row('Move-in Date', date_formatted(recipient.move_in_date))
-        = delivery_sheet_row('Recipient Comments', recipient.comments)
-        = underlined_empty_row(ApplicationHelper::DS_LINE_MAX)
-        = delivery_sheet_row('Delivery Notes', delivery.comments)
-        = underlined_empty_row(ApplicationHelper::DS_LINE_MAX)
-        = underlined_empty_row(ApplicationHelper::DS_LINE_MAX)
-        = underlined_empty_row(ApplicationHelper::DS_LINE_MAX)
-        = underlined_empty_row(ApplicationHelper::DS_LINE_MAX)
-        
+            = raw underlined_with_spaces(recipient.number_of_children, 4)
+        = raw delivery_sheet_row('Work/School Sched', recipient.work_school_schedule)
+        = raw underlined_empty_row(ApplicationHelper::DS_LINE_MAX)
+        -#= raw delivery_sheet_row('Move-in Date', date_formatted(recipient.move_in_date))
+        = raw delivery_sheet_row('Recipient Comments', recipient.comments)
+        = raw underlined_empty_row(ApplicationHelper::DS_LINE_MAX)
+        = raw delivery_sheet_row('Delivery Notes', delivery.comments)
+        = raw underlined_empty_row(ApplicationHelper::DS_LINE_MAX)
+        = raw underlined_empty_row(ApplicationHelper::DS_LINE_MAX)
+        = raw underlined_empty_row(ApplicationHelper::DS_LINE_MAX)
+        = raw underlined_empty_row(ApplicationHelper::DS_LINE_MAX)
+
       %br
       %br
-      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
       Partial
       = check_box_tag('Partial:', 1, false, :disabled => true)
       Complete
       = check_box_tag('Complete:', 1, false, :disabled => true)
       Not Done
       = check_box_tag('Not Done:', 1, false, :disabled => true)
-      

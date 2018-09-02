@@ -6,7 +6,7 @@
   %tr
     %td
       -form_tag new_daily_worksheet_path(), :method => :get do
-        = calendar_date_select_tag( 'the_worksheet_date', Time.now.to_date, :size => 23, :time => false, :popup => :force)   
+        = calendar_date_select_tag( 'the_worksheet_date', Time.now.to_date, :size => 23, :time => false, :popup => :force)
         %br
         = submit_tag "Create NEW Daily Worksheet", :name => 'new_daily_worksheet'
 
@@ -17,12 +17,11 @@
     %td
       - form_for(DailyWorksheet.new, :url => {:action => "index"}, :html => {:method => :get}) do |f|
         %fieldset
-          Search By Date: 
+          Search By Date:
           = text_field_tag :search_term
           = f.submit "Search"
 
 = render(:partial => "shared/flashes")
 
 - column_titles = ['ID', 'Worksheet Date', 'Actions', 'Special Comments', '# PU/DEL', 'Created At', 'Updated At']
-= table_header('Daily Worksheets', @the_things, column_titles, 'daily_worksheet')
-
+= raw table_header('Daily Worksheets', @the_things, column_titles, 'daily_worksheet')

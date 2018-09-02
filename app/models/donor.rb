@@ -7,18 +7,19 @@ class Donor < ActiveRecord::Base
   accepts_nested_attributes_for :donor_items, :allow_destroy => true, :reject_if => proc { |attributes| attributes.all? {|k,v| v.blank? || v == '0'} }
   has_many :daily_deliveries, :dependent => :destroy
 
-  scope :first_name_like,  lambda{ |search_term| {:conditions => ["first_name LIKE :term", {:term => "#{search_term}%"}]} unless search_term.blank?}
-  scope :last_name_like,  lambda{ |search_term| {:conditions => ["last_name LIKE :term", {:term => "#{search_term}%"}]} unless search_term.blank?}
-  scope :address_like,  lambda{ |search_term| {:conditions => ["street_1 LIKE :term", {:term => "%#{search_term}%"}]} unless search_term.blank?}
-  scope :city_section_is,  lambda{ |section| {:conditions => ["city_section = ?", section]} unless section.blank?}
+  scope :first_name_like,  -> (search_term) {where("first_name LIKE ?", "#{search_term}%") unless search_term.blank?}
+  scope :last_name_like,  -> (search_term) {where("last_name LIKE ?", "#{search_term}%") unless search_term.blank?}
+  scope :address_like,  -> (search_term) {where("street_1 LIKE ?", "%#{search_term}%") unless search_term.blank?}
+  scope :city_section_is,  -> (section) {where("city_section = ?", section) unless section.blank?}
 
-  #scope :for_pickup_date_range,  lambda{ |date_start, date_end| {:conditions => ["scheduled_pickup_time BETWEEN ? and ?", Date.parse(date_start).beginning_of_day.utc.to_s(:db), Date.parse(date_end).end_of_day.utc.to_s(:db)]} unless (date_start.blank? || date_end.blank?)}
-  #scope :with_state,  lambda{ |search_term| {:conditions => ["state = ?", search_term]} unless search_term == ''}
-  #scope :is_pending,  lambda{ |search_term| {:conditions => ["pending = ?", search_term]} unless search_term == ''}
-  #scope :with_priority,  lambda{ |search_term| {:conditions => ["priority = ?", search_term]} unless search_term == ''}
-  #scope :was_pickedup,  {:conditions => ["state = 2 OR state = 3"]}
+  # don't need these, I guess?
+  #scope :for_pickup_date_range,  -> (date_start, date_end) {where("scheduled_pickup_time BETWEEN ? and ?", Date.parse(date_start).beginning_of_day.utc.to_s(:db), Date.parse(date_end).end_of_day.utc.to_s(:db)) unless (date_start.blank? || date_end.blank?)}
+  #scope :with_state,  -> (search_term) {where("state = ?", search_term) unless search_term == ''}
+  #scope :is_pending,  -> (search_term) {where("pending = ?", search_term) unless search_term == ''}
+  #scope :with_priority,  -> (search_term) {where("priority = ?", search_term) unless search_term == ''}
+  #scope :was_pickedup,  -> {where("state = 2 OR state = 3")}
 
-  #scope :for_date, lambda{ |a_date| {:conditions => ["scheduled_pickup_time BETWEEN ? AND ?", a_date.beginning_of_day.utc.to_s(:db), a_date.end_of_day.utc.to_s(:db)], :order => 'scheduled_pickup_time DESC'}}
+  #scope :for_date, -> (a_date| {where("scheduled_pickup_time BETWEEN ? AND ?", a_date.beginning_of_day.utc.to_s(:db), a_date.end_of_day.utc.to_s(:db)).order('scheduled_pickup_time DESC')}
 
   # priority classifications
   CLASS_A = 1

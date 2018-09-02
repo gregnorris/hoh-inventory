@@ -1,7 +1,7 @@
 class Item < ActiveRecord::Base
 
-  scope :that_are_valid,  {:conditions => ["obsolete IS NOT TRUE"]}
-  scope :ordered_by_category, :order => "category_id ASC"
+  scope :that_are_valid, -> {where("obsolete IS NOT TRUE")}
+  scope :ordered_by_category, -> {order("category_id ASC")}
 
 
   ITEM_SPACER = '---------------'

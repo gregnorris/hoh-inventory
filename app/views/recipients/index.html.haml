@@ -9,11 +9,11 @@
       &nbsp; &nbsp;
     %td
       &nbsp; &nbsp;
-      
+
     -#%td
     -#  - form_for(Recipient.new, :url => {:action => "index"}, :html => {:method => :get}) do |f|
     -#    %fieldset
-    -#      Search By Last Name: 
+    -#      Search By Last Name:
     -#      = text_field_tag :search_term
     -#      = f.submit "Search"
 
@@ -22,7 +22,8 @@
 = render(:partial => "shared/flashes")
 
 - column_titles = ['ID', 'Name', 'Phone<br>Numbers', 'Address', 'City Section', 'State', 'Class', 'Pending', 'Latest Call At', 'Oldest Uncompleted<br>Delivery', '# Deliveries', 'Actions']
-= table_header('Recipient', @the_things, column_titles, 'recipient')
+=# Render the table of recipients, using the _recipient.html.haml partial to render each row
+= raw table_header('Recipient', @the_things, column_titles, 'recipient')
 
 %br
 %br
@@ -87,5 +88,3 @@
 -#<area shape="poly" coords="160,194,155,235,207,225,215,198,201,205,195,201,199,196,197,190,188,194,177,190" href="Community Areas/River Heights Neighbourhood Cluster/Neighbourhoods/River Heights West/default.asp" />
 -#<area shape="poly" coords="226,180,205,188,206,196,215,197,212,214,209,227,222,226,237,224,242,214,244,201,228,204,222,200,222,191" href="Community Areas/River Heights Neighbourhood Cluster/Neighbourhoods/River Heights East/default.asp" />
 -#<area shape="rect" coords="313,10,396,47" href="javascript: alert('Click on a section to list all people on file living in that area.');" title="How to search using the map" />
-
-

@@ -1,8 +1,8 @@
 %tr
-  = table_row(organization.id)
-  = table_row(organization.org_short_name)
-  = table_row(organization.org_description)
-  
+  = raw table_row(organization.id)
+  = raw table_row(organization.org_short_name)
+  = raw table_row(organization.org_description)
+
   %td
     = link_to_icon(:edit, edit_polymorphic_path(organization))
     |

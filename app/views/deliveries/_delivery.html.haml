@@ -1,10 +1,10 @@
 %tr
-  = table_row(delivery.id)
-  = table_row(Delivery::PRIORITIES[delivery.priority])
-  = table_row(datetime_formatted(delivery.scheduled_delivery_time))
-  = table_row(datetime_formatted(delivery.delivered_on))
-  = table_row(Delivery::STATES[delivery.state])
-  = table_row(delivery.delivered_items.andand.size)
+  = raw table_row(delivery.id)
+  = raw table_row(Delivery::PRIORITIES[delivery.priority])
+  = raw table_row(datetime_formatted(delivery.scheduled_delivery_time))
+  = raw table_row(datetime_formatted(delivery.delivered_on))
+  = raw table_row(Delivery::STATES[delivery.state])
+  = raw table_row(delivery.delivered_items.andand.size)
   %td
     = link_to_icon(:edit, edit_polymorphic_path([@recipient, delivery]))
     |

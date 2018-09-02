@@ -1,10 +1,10 @@
 %tr
-  = table_row(donor_pickup.id)
-  = table_row(DonorPickup::STATES[donor_pickup.state])
-  = table_row(DonorPickup::PRIORITIES[donor_pickup.priority])
-  = table_row(donor_pickup.pending)
-  = table_row(datetime_formatted(donor_pickup.scheduled_pickup_time))
-  = table_row(datetime_formatted(donor_pickup.pickedup_on))
+  = raw table_row(donor_pickup.id)
+  = raw table_row(DonorPickup::STATES[donor_pickup.state])
+  = raw table_row(DonorPickup::PRIORITIES[donor_pickup.priority])
+  = raw table_row(donor_pickup.pending)
+  = raw table_row(datetime_formatted(donor_pickup.scheduled_pickup_time))
+  = raw table_row(datetime_formatted(donor_pickup.pickedup_on))
   %td{:valign => 'top'}
     - donor_pickup.pickedup_items.each do |p_item|
       = "#{p_item.item.item_code} [#{p_item.number_donated}]"

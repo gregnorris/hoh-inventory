@@ -11,20 +11,42 @@ Rails.application.routes.draw do
   root :controller => "user_sessions", :action => "new" # first page user sees is the login page
   #map.root :controller => :recipients
 
-  resources :recipients, :collection => { :show_map => :get } do
-    resources :deliveries, :member => { :delivery_sheet => :get } do
-      resources :delivered_items
+  resources :recipients do
+    collection do
+      get :show_map # GET /recipients/show_map
+    end
+    resources :deliveries do  # CRUD /recipients/<r_id>/deliveries/[<d_id>]
+      member do
+        get :delivery_sheet  # GET /recipients/<r_id>/deliveries/<d_id>/delivery_sheet
+      end
+      resources :delivered_items # CRUD /recipients/<r_id>/deliveries/<d_id>/delivered_items/[<di_id>]
     end
   end
 
   # to allow for top level index view
-  resources :deliveries, :member => { :add_to_worksheet => :put }
-  resources :donor_pickups, :member => { :add_to_worksheet => :put }
+  resources :deliveries do
+    member do
+      put :add_to_worksheet  # PUT /deliveries/<d_id>/add_to_worksheet
+    end
+  end
 
-  # TODO: remove :member => { :add_to_worksheet => :put }
-  resources :donors, :member => { :add_to_worksheet => :put } do
+  resources :donor_pickups do
+    member do
+      put :add_to_worksheet # PUT /donor_pickups/<dp_id>/add_to_worksheet
+    end
+  end
+
+
+  # TODO: remove member block for :add_to_worksheet ??
+  resources :donors do
+    member do
+      put :add_to_worksheet
+    end
     resources :donor_items
-    resources :donor_pickups, :member => { :delivery_sheet => :get } do
+    resources :donor_pickups do
+      member do
+        get :delivery_sheet
+      end
       resources :pickedup_items
     end
   end
@@ -32,7 +54,12 @@ Rails.application.routes.draw do
   resources :items
   resources :case_workers
   resources :organizations
-  resources :reports, :member => { :deliveries_stats => :get }
+  
+  resources :reports do
+    member do
+      get :deliveries_stats
+    end
+  end
 
   resources :users
   resource :account, :controller => "users"
@@ -43,7 +70,11 @@ Rails.application.routes.draw do
   get "login", :controller => "user_sessions", :action => "new"
   delete "logout", :controller => "user_sessions", :action => "destroy"
 
-  resources :daily_worksheets, :member => { :reorder => :get, :print_worksheet => :get } do
+  resources :daily_worksheets do #, :member => { :reorder => :get, :print_worksheet => :get } do
+    member do
+      get :reorder
+      get :print_worksheet
+    end
 		resources :daily_deliveries   # was map.resources ....
   end
 

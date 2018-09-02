@@ -8,7 +8,7 @@
     %b
       = link_to(recipient.full_name, edit_recipient_path(recipient))
   %td
-    = "#{recipient.phone_primary} <br>  #{recipient.phone_secondary}"
+    = raw "#{recipient.phone_primary} <br>  #{recipient.phone_secondary}"
   %td
     = recipient.address
   %td
@@ -20,7 +20,7 @@
   %td
     = (oldest_uncompleted_delivery.pending.nil? ? 'nil' : oldest_uncompleted_delivery.pending?) if oldest_uncompleted_delivery
   %td
-    = datetime_formatted_2_line(oldest_uncompleted_delivery.andand.latest_call_at)
+    = raw datetime_formatted_2_line(oldest_uncompleted_delivery.andand.latest_call_at)
   %td
     = date_formatted(oldest_uncompleted_delivery.andand.scheduled_delivery_time)
   %td

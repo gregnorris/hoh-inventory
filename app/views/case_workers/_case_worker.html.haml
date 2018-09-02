@@ -1,10 +1,10 @@
 %tr
-  = table_row(case_worker.id)
-  = table_row(case_worker.full_name)
-  = table_row(case_worker.phone_number)
-  = table_row(case_worker.email)
-  = table_row(case_worker.organization.andand.org_short_name)
-  
+  = raw table_row(case_worker.id)
+  = raw table_row(case_worker.full_name)
+  = raw table_row(case_worker.phone_number)
+  = raw table_row(case_worker.email)
+  = raw table_row(case_worker.organization.andand.org_short_name)
+
   %td
     = link_to_icon(:edit, edit_polymorphic_path(case_worker))
     |

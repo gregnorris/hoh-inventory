@@ -1,10 +1,10 @@
 %tr
-  = table_row(item.id)
-  = table_row(item.category_string)
-  = table_row(item.item_code)
-  = table_row(item.name)
-  = table_row(item.obsolete)
-  = table_row(item.description)
+  = raw table_row(item.id)
+  = raw table_row(item.category_string)
+  = raw table_row(item.item_code)
+  = raw table_row(item.name)
+  = raw table_row(item.obsolete)
+  = raw table_row(item.description)
   %td
     = image_tag(item.icon_path, :width => "50", :height =>"50") unless item.icon_path.blank?
   %td

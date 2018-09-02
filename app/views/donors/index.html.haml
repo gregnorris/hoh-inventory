@@ -14,7 +14,7 @@
 = render(:partial => "shared/flashes")
 
 - column_titles = ['ID', 'Name', 'Address', 'City Section', 'State', 'Class', 'Pending?', 'Scheduled Pickup Time', 'Daily Worksheet', 'Possible Future Pickup', 'Items', 'Actions']
-= table_header('Donor', @the_things, column_titles, 'donor')
+= raw table_header('Donor', @the_things, column_titles, 'donor')
 
 %br
 %br
@@ -49,5 +49,3 @@
 %area{:shape => 'poly', :coords => "160,194,155,235,207,225,215,198,201,205,195,201,199,196,197,190,188,194,177,190", :href => "#{donors_path(:city_section => ApplicationHelper::RIVER_HEIGHTS_WEST)}"}
 %area{:shape => 'poly', :coords => "226,180,205,188,206,196,215,197,212,214,209,227,222,226,237,224,242,214,244,201,228,204,222,200,222,191", :href => "#{donors_path(:city_section => ApplicationHelper::RIVER_HEIGHTS_EAST)}"}
 </map>
-
-

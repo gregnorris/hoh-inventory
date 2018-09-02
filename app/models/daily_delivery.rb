@@ -8,8 +8,8 @@ class DailyDelivery < ActiveRecord::Base
   acts_as_list :scope => :daily_worksheet
 
   # target_date isn't being set in the daily_delivery
-  #scope :for_date,  lambda{ |a_date| {:conditions => ["target_date = :term", {:term => "%#{a_date}%"}]}}
-  #scope :in_order, {:order => 'order ASC']}
+  #scope :for_date,  -> (a_date) {where("target_date = ?", %#{a_date}%")}
+  #scope :in_order, -> {order('order ASC')}
 
   PICKUP = 1
   DELIVERY = 2

@@ -4,12 +4,12 @@ class PickedupItem < ActiveRecord::Base
 
   validates_presence_of :item_id
 
-  scope :that_were_donated,  {:conditions => ["number_donated IS NOT NULL AND number_donated > 0"]}
-  scope :that_were_offered,  {:conditions => ["number_offered IS NOT NULL AND number_offered > 0"]}
+  scope :that_were_donated,  -> {where("number_donated IS NOT NULL AND number_donated > 0")}
+  scope :that_were_offered,  -> {where("number_offered IS NOT NULL AND number_offered > 0")}
 
-  scope :is_this_item,  lambda{ |the_item_id| {:conditions => ["item_id = ?", the_item_id]}}
-  scope :ordered_by_item_category, {:include => :item, :order => "items.category_id ASC"}
-  scope :still_to_pickup, :conditions => ["done IS NOT TRUE"]
+  scope :is_this_item,  -> (the_item_id) {where("item_id = ?", the_item_id)}
+  scope :ordered_by_item_category, -> {includes(:item).order("items.category_id ASC")}
+  scope :still_to_pickup, -> {where("done IS NOT TRUE")}
 
 
   PET_HAIR = 1

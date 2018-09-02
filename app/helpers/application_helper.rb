@@ -25,7 +25,7 @@ module ApplicationHelper
   INKSTER_EAST = 21
   SEVEN_OAKS_WEST = 22
   SEVEN_OAKS_EAST = 23
-  
+
   CITY_SECTIONS = {
     1 => '*OLD* Downtown East (new: A, A-1, D-E, D-C)',
     2 => '*OLD* Downtown West (new: D-W, S-W)',
@@ -73,7 +73,7 @@ module ApplicationHelper
     44 => 'West Kildonan (N)',
     45 => 'Maples (M)'
   }
-  
+
   OLD_CITY_SECTIONS = {
     1 => '*OLD* Downtown East (new: A, A-1, D-E, D-C)',
     2 => '*OLD* Downtown West (new: D-W, S-W)',
@@ -99,7 +99,7 @@ module ApplicationHelper
     22 => '*OLD* Seven Oaks West (new: M)',
     23 => '*OLD* Seven Oaks East (new: N)'
   }
-  
+
   NEW_CITY_SECTIONS = {
     24 => 'Point Douglas (A-1)',
     25 => 'Dufferin to Selkirk (A-2)',
@@ -124,35 +124,35 @@ module ApplicationHelper
     44 => 'West Kildonan (N)',
     45 => 'Maples (M)'
   }
-  
+
   #def get_city_section(city_section_id)
   #  return CITY_SECTIONS[city_section_id] if city_section_id < 24
   #  return NEW_CITY_SECTIONS[city_section_id] if city_section_id > 23
   #end
-  
+
   # for use in edit forms
   def city_sections_list(selected_city = nil)
     sections_list = NEW_CITY_SECTIONS.map{|s| [s[1], s[0]]}
-    
+
     # if an old city section is still set, add that to the dropdown list, so it can be shown
     if selected_city and selected_city < 24
-      
+
       sections_list << [CITY_SECTIONS[selected_city], selected_city]
     end
     sections_list
   end
-  
+
   # for use in search dropdowns
   def all_city_sections_list
     #sections_list = []
     sections_list = NEW_CITY_SECTIONS.map{|s| [s[1], s[0]]} | ["---------------------"] | OLD_CITY_SECTIONS.map{|s| [s[1], s[0]]}
     sections_list
   end
-  
+
   def datetime_formatted(the_time)
     the_time.andand.strftime("%a %b %d, %Y - %I:%M %p")  # %Z for timezone
   end
-  
+
   def datetime_formatted_2_line(the_time)
     return "" unless the_time
     time_str = the_time.andand.strftime("%a %b %d, %Y")
@@ -160,14 +160,14 @@ module ApplicationHelper
     time_str << the_time.andand.strftime("%I:%M %p")
     time_str
   end
-  
+
   def date_formatted(the_time)
     the_time.andand.strftime("%a %b %d, %Y")  # %Z for timezone
   end
-  
+
   DS_LINE_MAX = 40 # was 39
-  
-  # print a row with a label in cell 1, and an underlined value in cell 2 
+
+  # print a row with a label in cell 1, and an underlined value in cell 2
   # (with extra blank underlined space)
   def delivery_sheet_row(label, value)
     value_size = value.blank? ? 0 : value.size
@@ -178,19 +178,22 @@ module ApplicationHelper
     src << "<td><u> #{value}#{'&nbsp;'*(DS_LINE_MAX-value_size)}</u></td>"
     src << "</tr>"
   end
-  
+
   def delivery_sheet_item_td(value)
     src = "<td>#{value}</td>"
+    src
   end
-  
+
   def underlined_with_spaces(value, number_of_spaces)
     src = "<u> #{value} #{'&nbsp;'*number_of_spaces}</u>"
+    src
   end
-  
+
   def underlined_empty_row(number_of_spaces)
     src = "<tr><td>&nbsp;</td><td><u>#{'&nbsp;'*number_of_spaces}</u></td>"
+    src
   end
-  
+
   # valid png icons are: edit, view, index, delete, package, deliver
   def link_to_icon(icon, the_path)
     html_options = (icon == :delete) ? {
@@ -201,7 +204,8 @@ module ApplicationHelper
                     } : {}
     link_to(image_tag("#{icon.to_s}.png", :alt => "#{icon.to_s.upcase}"), the_path, {:title => "#{icon.to_s.upcase}"}.merge(html_options))
   end
-  
+
+  # appears not to be used right now??
   def link_to_icon_with_text(icon, text, the_path)
     html_options = (icon == :delete) ? {
                     :method   => :delete,
@@ -213,8 +217,8 @@ module ApplicationHelper
     img << ' <b>' + text +'</b>'
     link_to(img, the_path, {:title => "#{icon.to_s.upcase}"}.merge(html_options))
   end
-  
-  
+
+
   #--------------------------------------------------------------------------
   # Common display formatting for pagination links and descriptive text.
   # (Meant for use in the thead and tfoot of an index table.)
@@ -241,7 +245,8 @@ module ApplicationHelper
     src
   end
   #--------------------------------------------------------------------------
-  
+
+  # appears not to be used right now??
   #--------------------------------------------------------------------------
   # Common display formatting for an index page with search area at the top (and usually an "Add new ..." button)
   # (if an Add button should not be on the page, set title_for_add_button to blank or nil)
@@ -258,7 +263,7 @@ module ApplicationHelper
     src = ''
     src << "<h2> #{page_title}</h2>"
     src << render(:partial => "shared/flashes")
-    
+
     src << '<table>'
     #src << '<thead>'
     #src << pagination_display(items, item_name, column_titles.size, pagination_opts) unless items.nil?
@@ -268,12 +273,13 @@ module ApplicationHelper
     src << "</td></tr>"
     src << '</table>'
     src
-    
+
   end
   #--------------------------------------------------------------------------
-  
+
+  # appears not to be used right now??
   #--------------------------------------------------------------------------
-  # Common display formatting for an index table view of a collection 
+  # Common display formatting for an index table view of a collection
   # (includes table header and footer pagination)
   #
   # params:
@@ -299,7 +305,7 @@ module ApplicationHelper
       src << '<tbody>'
       src << render(:partial => row_partial, :collection => items, :locals => row_partial_local_opts)
       src << '</tbody>'
-      
+
       src << '<tfoot>'
       #src << pagination_display(items, item_name, column_titles.size, pagination_opts)
       src << '</tfoot>'
@@ -308,7 +314,7 @@ module ApplicationHelper
     src
   end
   #--------------------------------------------------------------------------
-  
+
   #--------------------------------------------------------------------------
   def show_field(field, title)
     src = ''
@@ -319,13 +325,13 @@ module ApplicationHelper
     src
   end
   #--------------------------------------------------------------------------
-  
+
   #--------------------------------------------------------------------------
   def table_row(value)
     "<td valign=top>#{value}</td>"
   end
   #--------------------------------------------------------------------------
-  
+
   #--------------------------------------------------------------------------
   def index_table(items, column_titles, row_partial, row_partial_local_opts = {})
     src = ''
@@ -341,13 +347,14 @@ module ApplicationHelper
       src << '<tbody>'
       src << render(:partial => row_partial, :collection => items, :locals => row_partial_local_opts)
       src << '</tbody>'
-      
+
     end
     src << '</table>'
+
     src
   end
   #--------------------------------------------------------------------------
-  
+
   #--------------------------------------------------------------------------
   def table_header(item_name, items, column_titles, row_partial, row_partial_local_opts = {})
     src = ''
@@ -365,7 +372,7 @@ module ApplicationHelper
       src << '<tbody>'
       src << render(:partial => row_partial, :collection => items, :locals => row_partial_local_opts)
       src << '</tbody>'
-      
+
       src << '<tfoot>'
       src << pagination_display(items, item_name, column_titles.size, {})
       src << '</tfoot>'
@@ -374,15 +381,16 @@ module ApplicationHelper
     src
   end
   #--------------------------------------------------------------------------
-  
+
   #--------------------------------------------------------------------------
+  #FIXME: not generating link for last element in the breadcrumb levels
   def generate_breadcrumbs(request)
     s = ""
     url = request.path.split('?')  #remove extra query string parameters
     levels = url[0].split('/') #break up url into different levels
     levels.each_with_index do |level, index|
       unless level.blank?
-        if index == levels.size-1 || 
+        if index == levels.size-1 ||
            (level == levels[levels.size-2] && levels[levels.size-1].to_i > 0)
           s += " / #{level.gsub(/_/, ' ')}" unless level.to_i > 0
         else

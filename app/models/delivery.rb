@@ -1,30 +1,31 @@
 class Delivery < ActiveRecord::Base
 
-  has_many :delivered_items, :foreign_key => :delivery_id, :dependent => :destroy
+  has_many :delivered_items, :foreign_key => :delivery_id#, :dependent => :destroy
   belongs_to :recipient
-  has_many :daily_deliveries, :dependent => :destroy
+  has_many :daily_deliveries#, :dependent => :destroy
 
   accepts_nested_attributes_for :delivered_items, :allow_destroy => true, :reject_if => proc { |attributes| attributes.all? {|k,v| v.blank? || v == '0'} }
 
+  scope :in_order_of_delivery, -> {order('scheduled_delivery_time ASC')}
 
-  scope :first_name_like,  lambda{ |search_term| {:include => :recipient, :conditions => ["recipients.first_name LIKE :term", {:term => "#{search_term}%"}]} unless search_term.blank?}
-  scope :last_name_like,  lambda{ |search_term| {:include => :recipient, :conditions => ["recipients.last_name LIKE :term", {:term => "#{search_term}%"}]} unless search_term.blank?}
-  scope :address_like,  lambda{ |search_term| {:include => :recipient, :conditions => ["recipients.street_1 LIKE :term", {:term => "%#{search_term}%"}]} unless search_term.blank?}
-  scope :health_number_like, lambda{ |search_term| {:include => :recipient, :conditions => ["recipients.health_care_number = :term", {:term => "#{search_term}"}]} unless search_term.blank?}
+  scope :first_name_like,  -> (search_term) {includes(:recipient).where("recipients.first_name LIKE ?", "#{search_term}%") unless search_term.blank?}
+  scope :last_name_like,  -> (search_term) {includes(:recipient).where("recipients.last_name LIKE ?", "#{search_term}%") unless search_term.blank?}
+  scope :address_like,  -> (search_term) {includes(:recipient).where("recipients.street_1 LIKE ?", "%#{search_term}%") unless search_term.blank?}
+  scope :health_number_like, -> (search_term) {includes(:recipient).where("recipients.health_care_number = ?", "#{search_term}") unless search_term.blank?}
 
-  scope :for_delivery_date_range,  lambda{ |date_start, date_end| {:conditions => ["scheduled_delivery_time BETWEEN ? and ?", Date.parse(date_start).beginning_of_day.to_s(:db), Date.parse(date_end).end_of_day.to_s(:db)]} unless (date_start.blank? || date_end.blank?)}
-  scope :with_state,  lambda{ |search_term| {:conditions => ["state = ?", search_term]} unless search_term == ''}
-  scope :is_pending,  lambda{ |search_term| {:conditions => ["pending = ?", search_term]} unless search_term == ''}
-  scope :with_priority,  lambda{ |search_term| {:conditions => ["priority = ?", search_term]} unless search_term == ''}
+  scope :for_delivery_date_range, -> (date_start, date_end) {where("scheduled_delivery_time BETWEEN ? and ?", Date.parse(date_start).beginning_of_day.to_s(:db), Date.parse(date_end).end_of_day.to_s(:db)) unless (date_start.blank? || date_end.blank?)}
+  scope :with_state, -> (search_term) {where("state = ?", search_term) unless search_term == ''}
+  scope :is_pending, -> (search_term) {where("pending = ?", search_term) unless search_term == ''}
+  scope :with_priority, -> (search_term) {where("priority = ?", search_term) unless search_term == ''}
 
-  scope :city_section_is,  lambda{ |section| {:include => :recipient, :conditions => ["recipients.city_section = ?", section]} unless section.blank?}
+  scope :city_section_is, -> (section) {includes(:recipient).where("recipients.city_section = ?", section) unless section.blank?}
 
-  scope :was_delivered_to, lambda{ |nothing| {:conditions => ["state = 2 OR state = 3"]} }
-  scope :not_yet_delivered,  lambda{ |nothing| {:conditions => ["state <> 2 AND state <> 3"]} }
+  scope :was_delivered_to, -> {where("state = 2 OR state = 3") }
+  scope :not_yet_delivered,  -> {where("state <> 2 AND state <> 3") }
 
-  scope :by_newest_delivery_date,  lambda{ |recipient_id| {:conditions => ["recipient_id = ?", recipient_id], :order => 'scheduled_delivery_time DESC'}}
-  scope :by_oldest_uncompleted,  lambda{ |nothing| {:conditions => ["state <> 3 AND state <> 4"], :order => 'scheduled_delivery_time ASC'} }
-  scope :for_date, lambda{ |a_date| {:conditions => ["scheduled_delivery_time BETWEEN ? AND ?", a_date.beginning_of_day.to_s(:db), a_date.end_of_day.to_s(:db)], :order => 'scheduled_delivery_time DESC'}}
+  scope :by_newest_delivery_date,  -> (recipient_id) {where("recipient_id = ?", recipient_id).order('scheduled_delivery_time DESC')}
+  scope :by_oldest_uncompleted,  -> {where("state <> 3 AND state <> 4").order('scheduled_delivery_time ASC')}
+  scope :for_date, -> (a_date) {where("scheduled_delivery_time BETWEEN ? AND ?", a_date.beginning_of_day.to_s(:db), a_date.end_of_day.to_s(:db)).order('scheduled_delivery_time DESC')}
 
   ENTERED = 0
   SCHEDULED = 1
