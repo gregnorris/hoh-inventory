@@ -7,8 +7,12 @@
   <title><%= controller.andand.the_model_name + ': ' + controller.action_name %></title>
   <%= stylesheet_link_tag 'basestyle' %>
   <%= stylesheet_link_tag 'hoh_style' %>
+  <%= stylesheet_link_tag 'bootstrap_and_overrides' %>
+  <%= stylesheet_link_tag 'bootstrap-datepicker' %>
   <%#= calendar_date_select_includes "red" %>
 
+  <%= javascript_include_tag 'twitter/bootstrap' %>
+  <%= javascript_include_tag 'bootstrap-datepicker' %>
 
   <%#= javascript_include_tag :defaults %>
 

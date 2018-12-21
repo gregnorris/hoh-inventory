@@ -6,11 +6,11 @@
 
 %div
   - @daily_worksheet = @the_thing unless @daily_worksheet
-  - form_for(@daily_worksheet, :url => daily_worksheet_path(@daily_worksheet), :html => {:method => :put}) do |f|
+  = form_for(@daily_worksheet, :url => daily_worksheet_path(@daily_worksheet), :html => {:method => :put}) do |f|
     %fieldset
       %table
         = render :partial => "form", :locals => {:f => f}
       = render :partial => "edit_daily_deliveries", :locals => {:f => f}
-    
-      
+
+
       = f.submit "Save"

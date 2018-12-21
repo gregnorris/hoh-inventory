@@ -2,7 +2,7 @@
   Add Item to Delivery
 %div.left_half
   - @delivered_item = @the_thing
-  - form_for(:delivered_item, :url => recipient_delivery_delivered_items_path(@recipient, @delivery), :html => {:method => :post}) do |f|
+  = form_for(:delivered_item, :url => recipient_delivery_delivered_items_path(@recipient, @delivery), :html => {:method => :post}) do |f|
     %fieldset
       %table
         = render :partial => "form", :locals => {:f => f}

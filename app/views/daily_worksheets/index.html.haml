@@ -5,7 +5,7 @@
 %table
   %tr
     %td
-      -form_tag new_daily_worksheet_path(), :method => :get do
+      = form_tag new_daily_worksheet_path(), :method => :get do
         = calendar_date_select_tag( 'the_worksheet_date', Time.now.to_date, :size => 23, :time => false, :popup => :force)
         %br
         = submit_tag "Create NEW Daily Worksheet", :name => 'new_daily_worksheet'
@@ -15,7 +15,7 @@
     %td
       &nbsp; &nbsp; &nbsp; &nbsp;
     %td
-      - form_for(DailyWorksheet.new, :url => {:action => "index"}, :html => {:method => :get}) do |f|
+      = form_for(DailyWorksheet.new, :url => {:action => "index"}, :html => {:method => :get}) do |f|
         %fieldset
           Search By Date:
           = text_field_tag :search_term

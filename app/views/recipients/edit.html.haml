@@ -3,16 +3,16 @@
   = "Edit Recipient: #{@recipient.full_name}"
 = render(:partial => "shared/flashes")
 %div.left_half#recipient_area
-  - form_for @recipient, :url => {:action => "update"}, :html => {:method => :put} do |f|
+  = form_for @recipient, :url => {:action => "update"}, :html => {:method => :put} do |f|
     %fieldset
       %table
         = render :partial => "form", :locals => {:f => f}
-        
+
       = f.submit "Save"
       |
       = link_to 'Back to Index', recipients_path
-      = link_to_icon(:list, recipients_path) 
-  
+      = link_to_icon(:list, recipients_path)
+
   %br
 
 %div.right_half
@@ -23,7 +23,7 @@
         = button_to "Schedule New Delivery", new_recipient_delivery_path(@recipient), {:method => :get}
       %td
         -#= image_tag "deliver.png", :border => "0", :alt => "DeliverySheet", :size => "20x20"
-    
+
   %br
   - if @delivery
     %div.boxtitle
@@ -36,4 +36,3 @@
       = render("deliveries/edit")
     %br
   = render "deliveries/deliveries"
-

@@ -2,7 +2,7 @@
   Add Item to Donor
 %div.left_half
   - @donor_item = @the_thing
-  - form_for(:donor_item, :url => donor_donor_items_path(@donor), :html => {:method => :post}) do |f|
+  = form_for(:donor_item, :url => donor_donor_items_path(@donor), :html => {:method => :post}) do |f|
     %fieldset
       %table
         = render :partial => "form", :locals => {:f => f}

@@ -1,12 +1,12 @@
 %div
   - @delivery = @the_thing unless @delivery
-  - form_for(@delivery, :url => recipient_delivery_path(@recipient, @delivery), :html => {:method => :put}) do |f|
+  = form_for(@delivery, :url => recipient_delivery_path(@recipient, @delivery), :html => {:method => :put}) do |f|
     %fieldset
       %table
         = render :partial => "deliveries/form", :locals => {:f => f}
       = render :partial => "deliveries/edit_delivered_items", :locals => {:f => f}
-      
-      
+
+
       = f.submit "Save"
       |
       = link_to 'Edit Recipient', edit_recipient_path(@recipient)

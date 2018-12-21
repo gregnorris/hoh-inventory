@@ -2,14 +2,14 @@
   - @donor = @the_thing unless @donor
   = "Edit Donor: #{@donor.full_name}"
 %div.left_half
-  - form_for(@donor, :url => donor_path(@donor), :html => {:method => :put}) do |f|
+  = form_for(@donor, :url => donor_path(@donor), :html => {:method => :put}) do |f|
     %fieldset
       %table
         = render :partial => "form", :locals => {:f => f}
-        
+
       <a href="#old_donor_area" onclick="Element.toggle('old_donor_fields')">CLICK HERE to see old donor data---></a>
       %div#old_donor_fields{:style => "display:none"}
-        = render :partial => "old_donor_fields", :locals => {:f => f}  
+        = render :partial => "old_donor_fields", :locals => {:f => f}
         = render :partial => "donors/edit_donor_items", :locals => {:f => f}
       %br
       %br

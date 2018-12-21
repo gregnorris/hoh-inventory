@@ -6,7 +6,7 @@
     &nbsp; &nbsp; / &nbsp; &nbsp;
     = f.text_field :last_name, :size => 15
 %tr.form_field
-  %td.form_label  
+  %td.form_label
     = f.label :phone_primary, "Phone #(s)"
   %td
     = f.text_field :phone_primary, :size => 10
@@ -15,52 +15,52 @@
 %tr.form_field
   %td.form_label
     = f.label :email
-  %td  
+  %td
     = f.text_field :email
 
 %tr.form_field
   %td.form_label
     = f.label :city_section
-  %td  
+  %td
     = f.select :city_section, city_sections_list(f.object.city_section), {:include_blank => 'Please Select a City Section'}
     = link_to("Show Map", {:controller => 'recipients', :action => 'show_map'}, { :popup => ['new_window', 'height=500,width=700'] })
 %tr.form_field
   %td.form_label
     = f.label "Address"
-  %td  
+  %td
     = f.text_field :street_1, :size => 40
 %tr.form_field
   %td.form_label
     = f.label :level
-  %td  
+  %td
     = f.text_field :level, :size => 2
     &nbsp;<b> Buzzer/Code </b>
     = f.text_field :buzzer_number, :size => 7
     &nbsp;<b> Elevator? </b>
-    = f.check_box :elevator  
+    = f.check_box :elevator
     &nbsp;<b> Bed Bugs? </b>
-    = f.check_box :bed_bugs  
+    = f.check_box :bed_bugs
 %tr.form_field
   %td.form_label
     = f.label :directions
-  %td  
+  %td
     = f.text_area :directions, :cols => 40, :rows => 4
 
 %tr.form_field
   %td.form_label
     = f.label 'Dwelling'
-  %td  
+  %td
     - dwellings = Recipient::DWELLINGS_LONG.sort.map{ |s| [s[1], s[0]]}
     = f.select :dwelling_type, dwellings, {:include_blank => ' '}
     &nbsp;<b> Medical Relocation? </b>
-    = f.check_box :medical_relocation  
+    = f.check_box :medical_relocation
     &nbsp;<b> (from reserve? </b>
-    = f.check_box :relocation_from_reserve  
+    = f.check_box :relocation_from_reserve
     <b>)</b>
 %tr.form_field
   %td.form_label
     = f.label :bedrooms
-  %td  
+  %td
     = f.text_field :bedrooms, :size => 1
     &nbsp; &nbsp;
     <b> Adults </b>
@@ -68,37 +68,38 @@
     &nbsp; &nbsp;
     <b> Children </b>
     = f.text_field :number_of_children, :size => 2
-    
+
 - # render partial to allow editing of all residents
 %tr
   %td{:colspan => 2}
-    = render :partial => "edit_residents", :locals => {:f => f}  
-      
+    = render :partial => "edit_residents", :locals => {:f => f}
+
 %tr.form_field
   %td.form_label
     = f.label 'Work/School Schedule'
-  %td  
+  %td
     = f.text_area :work_school_schedule, :cols => 40, :rows => 2
-    
+
 %tr.form_field
   %td.form_label
     = f.label :move_in_date
-  %td  
-    = f.calendar_date_select :move_in_date, {:time => false, :popup => :force}
-    -#= f.date_select :move_in_date, {:include_blank => true, :default => nil}
+  = datepicker_input f, :move_in_date
+  -#%td
+    -#TEMP= f.calendar_date_select :move_in_date, {:time => false, :popup => :force}
+    -#OLDER= f.date_select :move_in_date, {:include_blank => true, :default => nil}
 
 %tr.form_field
   %td.form_label
     = f.label 'Recipient Comments'
-  %td  
+  %td
     = f.text_area :comments, :cols => 40, :rows => 4
-    
+
 %tr.form_field
   %td.form_label
     = f.label :previous_address
-  %td  
+  %td
     = f.text_field :previous_address
-        
+
 %tr.form-field
   %td.form_label
     = f.label 'Case Worker'
@@ -108,35 +109,35 @@
 %tr.form_field
   %td.form_label
     = f.label :case_number
-  %td  
+  %td
     = f.text_field :case_number, :size => 15
-    
+
 %tr.form_field
   %td.form_label
     = f.label 'Health Care #'
-  %td  
+  %td
     = f.text_field :health_care_number
-    
-       
+
+
 %tr.form_field
   %td.form_label
     = f.label 'Additional Info'
-  %td  
+  %td
     = f.text_area :additional_information, :cols => 40, :rows => 2
 
 %tr.form_field
   %td.form_label
     = f.label :intake_date
-  %td  
-    = f.calendar_date_select :intake_date, {:time => false, :popup => :force}
-    -#= f.date_select :intake_date, :default => Time.now
+  %td
+    -#TEMP= f.calendar_date_select :intake_date, {:time => false, :popup => :force}
+    -#OLDER= f.date_select :intake_date, :default => Time.now
 %tr.form_field
   %td.form_label
     = f.label :referred_by
-  %td  
+  %td
     = f.text_field :referred_by, :size => 20
 %tr.form_field
   %td.form_label
     = f.label 'Donation ($)'
-  %td  
+  %td
     = f.text_field :donation, :size => 5

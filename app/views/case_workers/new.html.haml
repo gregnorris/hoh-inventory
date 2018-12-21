@@ -2,7 +2,7 @@
   Create New Case Worker
 %div.left_half
   - @case_worker = @the_thing
-  - form_for(@case_worker, :url => {:action => "create"}, :html => {:method => :post}) do |f|
+  = form_for(@case_worker, :url => {:action => "create"}, :html => {:method => :post}) do |f|
     %fieldset
       %table
         = render :partial => "form", :locals => {:f => f}

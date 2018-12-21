@@ -2,7 +2,7 @@
   = "Edit Delivery for #{@recipient.full_name}"
 %div
   - @delivery = @the_thing unless @delivery
-  - form_for(@delivery, :url => recipient_delivery_path(@recipient), :html => {:method => :put}) do |f|
+  = form_for(@delivery, :url => recipient_delivery_path(@recipient), :html => {:method => :put}) do |f|
     %fieldset
       %table
         = render :partial => "deliveries/form", :locals => {:f => f}

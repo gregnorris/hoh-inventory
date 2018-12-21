@@ -27,7 +27,11 @@ gem 'andand', '~> 1.3', '>= 1.3.3'
 # NOTE: not officially supported for rails 4.1 and above
 #gem 'prototype-rails', github: 'rails/prototype-rails', branch: '4.2'
 
-gem "calendar_date_select", "2.1.2"  # should be changed (because it's not really supported for Rails 4)
+gem "twitter-bootstrap-rails" # https://github.com/seyhunak/twitter-bootstrap-rails
+
+#OLD gem "calendar_date_select", "2.1.2"  # should be changed (because it's not really supported for Rails 4)
+gem 'bootstrap-datepicker-rails'
+
 ##gem "hoe", "1.12.1"  # bundler said calendar_date_select depended on
 
 gem "will_paginate", '~> 3.1.0'

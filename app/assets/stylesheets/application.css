@@ -13,5 +13,7 @@
  *= require_self
  *= require basestyle
  *= require hoh_style
+ *= require bootstrap_and_overrides
+ *= require bootstrap-datepicker
  *= require_tree .
  */
